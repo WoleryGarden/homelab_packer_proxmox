@@ -1,0 +1,23 @@
+services:
+  packer-debian-12:
+    image: packer-debian-12
+    container_name: packer-debian-12
+    build: .
+    restart: unless-stopped
+    entrypoint: bash
+    command: ["-c","./run.sh; sleep 999999d"]
+    environment:
+      - PROXMOX_TOKEN=${PROXMOX_TOKEN}
+      - HTTP_IP=${HTTP_IP}
+    ports:
+      - 8805:8805
+      - 8806:8806
+      - 8807:8807
+      - 8808:8808
+      - 8809:8809
+      - 8810:8810
+      - 8811:8811
+      - 8812:8812
+      - 8813:8813
+      - 8814:8814
+      - 8815:8815

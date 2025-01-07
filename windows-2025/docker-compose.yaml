@@ -1,0 +1,10 @@
+services:
+  packer-windows-2025:
+    image: packer-windows-2025
+    container_name: packer-windows-2025
+    build: .
+    restart: unless-stopped
+    entrypoint: bash
+    command: ["-c","./run.sh; sleep 999999d"]
+    environment:
+      - PROXMOX_TOKEN=${PROXMOX_TOKEN}
