@@ -13,7 +13,7 @@ echo "Resizing lvm phisical volume.."
 sudo pvresize /dev/sda5
 
 echo "Resizing lvm logical volume and filesystem.."
-sudo lvextend -r -l+100%FREE /dev/vagrant-vg/root
+sudo lvextend -r -l+100%FREE /dev/debian-vg/root
 EOF
 
 chmod +x /root/add-space.sh
