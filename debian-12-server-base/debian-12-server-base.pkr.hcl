@@ -56,8 +56,8 @@ source "proxmox-iso" "linux-debian" {
     "kbd-chooser/method=us <wait>",
     "keyboard-configuration/xkb-keymap=us <wait>",
     "netcfg/choose_interface=eth0 <wait>",
-    "netcfg/get_hostname=vagrant <wait>",
-    "netcfg/get_domain=barfoot.co.nz <wait>",
+    "netcfg/get_hostname=debian <wait>",
+    "netcfg/get_domain=bat.nz <wait>",
     "fb=false <wait>",
     "debconf/frontend=noninteractive <wait>",
     "console-setup/ask_detect=false <wait>",
@@ -77,7 +77,7 @@ build {
     environment_vars = [
       "SSH_USERNAME=${var.ssh_username}",
     ]
-    execute_command   = "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'"
+    execute_command   = "echo 'debian' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'"
     expect_disconnect = true
     scripts = [
       "./scripts/baseline.sh",

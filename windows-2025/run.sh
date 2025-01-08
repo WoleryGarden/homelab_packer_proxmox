@@ -15,7 +15,7 @@ do
   fi
   packer build -force .
   retVal=$?
-  if [ $retVal -ne 0 ]; thencca
+  if [ $retVal -ne 0 ]; then
     echo "packer build failed"
   fi
   echo -n "$retVal" > /done
