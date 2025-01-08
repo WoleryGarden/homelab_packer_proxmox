@@ -66,7 +66,7 @@ source "proxmox-iso" "windows2025" {
   scsi_controller         = "virtio-scsi-single"
   cloud_init              = true
   cloud_init_storage_pool = var.cloud_init_storage
-  tag                     = "${var.tag}"
+  tags                    = "${var.tags}"
 
   # Network
   network_adapters {

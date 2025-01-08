@@ -61,7 +61,7 @@ variable "ssh_timeout" {
 variable "http_directory" {
   type = string
 }
-variable "tag" {
+variable "tags" {
   type = string
 }
 variable "bridge" {

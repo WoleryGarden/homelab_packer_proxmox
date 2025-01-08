@@ -96,3 +96,8 @@ variable "username" {
 variable "vm_name" {
   type = string
 }
+
+variable "tags" {
+  type = string
+}
+

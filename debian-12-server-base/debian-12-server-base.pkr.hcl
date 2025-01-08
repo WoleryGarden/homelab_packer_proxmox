@@ -18,7 +18,7 @@ source "proxmox-iso" "linux-debian" {
   insecure_skip_tls_verify = "${var.insecure_skip_tls_verify}"
   username                 = "${var.username}"
   token                    = "${var.token}"
-  tag                      = "${var.tag}"
+  tags                     = "${var.tags}"
   vm_name                  = "${var.vm_name}"
   template_name            = "${var.vm_name}"
   template_description     = "Created on: ${timestamp()}"
