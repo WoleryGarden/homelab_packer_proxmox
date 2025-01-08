@@ -18,5 +18,5 @@ do
   if [ $retVal -ne 0 ]; then
     echo "packer build failed"
   fi
-  echo "$retVal" > /done
+  echo -n "$retVal" > /done
 done
