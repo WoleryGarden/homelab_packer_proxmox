@@ -61,7 +61,7 @@ variable "ssh_timeout" {
 variable "http_directory" {
   type = string
 }
-variable "pool" {
+variable "tag" {
   type = string
 }
 variable "bridge" {
