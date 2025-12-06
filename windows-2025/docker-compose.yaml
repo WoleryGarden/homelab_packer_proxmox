@@ -5,6 +5,8 @@ services:
     build: .
     restart: unless-stopped
     entrypoint: bash
-    command: ["-c","./run.sh; sleep 999999d"]
+    command: ["-c","./run.sh"]
     environment:
       - PROXMOX_TOKEN=${PROXMOX_TOKEN}
+    healthcheck: # so that coolify does not display a warning
+      test: ["CMD-SHELL", "exit 0"]
