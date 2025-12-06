@@ -1,7 +1,7 @@
 vm_name                 = "template-debian-12"
 os                      = "l26"
 http_directory          = "http"
-iso_path                = "local:iso/debian-12.8.0-amd64-netinst.iso"
+iso_path                = "local:iso/debian-12.12.0-amd64-netinst.iso"
 cloud_init_storage_pool = "local-lvm"
 
 communicator = "ssh"
