@@ -33,6 +33,7 @@ source "proxmox-iso" "linux-debian" {
     disk_size    = "${var.disk_size}"
     type         = "scsi"
     storage_pool = "${var.storage_pool}"
+    format       = "raw"
   }
   network_adapters {
     model    = "virtio"
