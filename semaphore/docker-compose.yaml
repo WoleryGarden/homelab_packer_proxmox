@@ -1,0 +1,85 @@
+services:
+  traefik:
+    image: traefik:v3.6.2
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - --entryPoints.websecure.address=:443
+      - --providers.docker.exposedByDefault=false
+      - --certificatesResolvers.letsencrypt.acme.email=andrewsav@gmail.com
+      - --certificatesResolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
+      - --certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare
+      #- --certificatesResolvers.letsencrypt.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+      #- --api.insecure
+      #- --log.level=DEBUG
+      #- --accesslog
+    environment:
+      - CF_DNS_API_TOKEN=$CF_DNS_API_TOKEN
+    ports:
+      - 443:443
+      #- 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/traefik:/etc/traefik
+    logging:
+      driver: local
+  postgres:
+    restart: unless-stopped
+    container_name: postgres
+    image: postgres:18.1
+    hostname: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/18/docker
+    environment:
+      POSTGRES_USER: semaphore
+      POSTGRES_PASSWORD: $SEMAPHORE_DB_PASS
+      POSTGRES_DB: semaphore
+    logging:
+      driver: local
+  semaphore:
+    restart: unless-stopped
+    container_name: semaphore
+    ports:
+      - 8805:8805
+      - 8806:8806
+      - 8807:8807
+      - 8808:8808
+      - 8809:8809
+      - 8810:8810
+      - 8811:8811
+      - 8812:8812
+      - 8813:8813
+      - 8814:8814
+      - 8815:8815
+    #image: semaphoreui/semaphore:v2.16.45
+    image: semaphore
+    build: .
+    environment:
+      SEMAPHORE_DB_USER: semaphore
+      SEMAPHORE_DB_PASS: $SEMAPHORE_DB_PASS
+      SEMAPHORE_DB_HOST: postgres
+      SEMAPHORE_DB_PORT: 5432
+      SEMAPHORE_DB_DIALECT: postgres
+      SEMAPHORE_DB: semaphore
+      SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
+      SEMAPHORE_ADMIN_PASSWORD: $SEMAPHORE_ADMIN_PASSWORD
+      SEMAPHORE_ADMIN_NAME: admin
+      SEMAPHORE_ADMIN_EMAIL: admin@localhost
+      SEMAPHORE_ADMIN: admin
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: $SEMAPHORE_ACCESS_KEY_ENCRYPTION
+      SEMAPHORE_WEB_ROOT: https://$SEMAPHORE_DOMAIN
+      SEMAPHORE_TELEGRAM_ALERT: "True"
+      SEMAPHORE_TELEGRAM_CHAT: $SEMAPHORE_TELEGRAM_CHAT
+      SEMAPHORE_TELEGRAM_TOKEN: $SEMAPHORE_TELEGRAM_TOKEN
+      SEMAPHORE_SCHEDULE_TIMEZONE: Pacific/Auckland
+      TZ: Pacific/Auckland
+    depends_on:
+      - postgres
+    logging:
+      driver: local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.semaphore.rule=Host(`$SEMAPHORE_DOMAIN`)"
+      - "traefik.http.routers.semaphore.entrypoints=websecure"
+      - "traefik.http.routers.semaphore.tls.certresolver=letsencrypt"
+      - "traefik.http.services.semaphore.loadbalancer.server.port=3000"

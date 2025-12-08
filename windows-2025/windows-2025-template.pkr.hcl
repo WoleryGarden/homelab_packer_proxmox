@@ -89,7 +89,7 @@ source "proxmox-iso" "windows2025" {
   communicator   = "winrm"
   winrm_username = var.winrm_user
   winrm_password = var.winrm_password
-  winrm_timeout  = "12h"
+  winrm_timeout  = "2h"
   winrm_port     = "5986"
   winrm_use_ssl  = true
   winrm_insecure = true
