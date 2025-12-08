@@ -1,12 +1,12 @@
 packer {
   required_plugins {
     windows-update = {
-      version = "0.16.8"
+      version = "0.17.1"
       source  = "github.com/rgl/windows-update"
     }
     proxmox = {
-      #version = "~> 1"
-      version = "1.2.1" # https://github.com/hashicorp/packer-plugin-proxmox/issues/307
+      version = "~> 1"
+      #version = "1.2.1" # https://github.com/hashicorp/packer-plugin-proxmox/issues/307
       source  = "github.com/hashicorp/proxmox"
     }
   }
