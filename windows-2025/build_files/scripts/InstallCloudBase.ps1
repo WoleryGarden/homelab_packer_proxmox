@@ -1,11 +1,15 @@
 # Install CloudBase-Init
 
+. C:\Windows\Temp\invoke-with-retry.ps1
+
 Write-Host  "Downloading CloudBase-Init"
 
 try {
   Write-Host "Downloading CloudBaseInit Software"
   $ProgressPreference = "SilentlyContinue"
-  Invoke-WebRequest -Uri "https://cloudbase.it/downloads/CloudbaseInitSetup_x64.msi" -OutFile CloudbaseInitSetup_x64.msi
+  Invoke-WithRetry "Downloading CloudBaseInit Software" {
+    Invoke-WebRequest -Uri "https://cloudbase.it/downloads/CloudbaseInitSetup_x64.msi" -OutFile CloudbaseInitSetup_x64.msi
+  }
 
 
   Write-Host "Installing CloudBaseInit"

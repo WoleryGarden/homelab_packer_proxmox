@@ -106,6 +106,12 @@ build {
   name    = "Proxmox Build"
   sources = ["source.proxmox-iso.windows2025"]
 
+  # Shared by the scripts below that download from the internet
+  provisioner "file" {
+    source      = "./build_files/scripts/invoke-with-retry.ps1"
+    destination = "C:/Windows/Temp/invoke-with-retry.ps1"
+  }
+
   provisioner "windows-restart" {
   }
 
@@ -152,6 +158,7 @@ build {
 
   provisioner "powershell" {
     inline = [
+      "Remove-Item -Path C:\\Windows\\Temp\\invoke-with-retry.ps1",
       "Set-Location -Path \"C:\\Program Files\\Cloudbase Solutions\\Cloudbase-Init\\conf\"",
       "C:\\Windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /unattend:unattend.xml"
     ]
