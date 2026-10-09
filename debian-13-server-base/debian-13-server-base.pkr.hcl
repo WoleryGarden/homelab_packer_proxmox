@@ -25,6 +25,7 @@ source "proxmox-iso" "linux-debian" {
   os                       = "${var.os}"
   cores                    = "${var.cpus}"
   memory                   = "${var.memory}"
+  scsi_controller          = "virtio-scsi-single"
 
   cloud_init              = true
   cloud_init_storage_pool = var.cloud_init_storage_pool
